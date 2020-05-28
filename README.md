@@ -426,7 +426,9 @@ public class HomeController {
 }
 ```
 **下面进行测试，启动项目**
+
 访问<code>http://localhost:8080/userInfo/userList</code>页面
+
 由于没有登录就会跳转到<code>http://localhost:8080/login</code>页面
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20200528153528747.png)
