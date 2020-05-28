@@ -450,7 +450,7 @@ public class HomeController {
 可以修改用户admin不同权限进行测试。
 以上完成Shiro实现登录认证和权限授权的功能。
 
-点击这里>[博客地址-SpringBoot整合Shiro实现登录认证和权限授权](https://blog.csdn.net/weixin_44316527/article/details/106402304)
+点击这里>[CSDN项目博客地址-SpringBoot整合Shiro实现登录认证和权限授权](https://blog.csdn.net/weixin_44316527/article/details/106402304)
 
 点击这里>[Github项目源码地址-SpringBoot整合Shiro实现登录认证和权限授权](https://github.com/ChuaWi/SpringBoot-Shiro)
 
