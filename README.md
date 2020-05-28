@@ -4,20 +4,33 @@ Shiro是一个功能强大、灵活的，开源的安全框架，主要可以帮
 > 早期Spring  security 作为一个比较完善的安全框架比较火，但是Springsecurity学习成本比较高，于是就出现了shiro安全框架，学习成本降低了很多，而且基本的功能也比较完善。
 
 **Shiro的架构**
+
 1、<code>Subject</code>：主题。被验证的对象，一般指的当前用户对象。但是不仅仅可以指当前用户对象，还可以是其他东西，线程等等。spring mvc中一个一个的用户的请求。
+
 2、<code>SecurityManager</code>：安全认证管理器。是shiro的核心，会在安全认证管理器中所做所有的认证操作。类似于之前Spring MVC中的前端控制器（DispacherServlet）。
+
 3、<code>Realm</code>：域的意思。负责访问安全认证数据。shiro框架并不存在安全认证数据，安全认证数据需要用户自己存储。shiro支持很多的Realm实现，也就是说安全认证数据我们可以放到数据库中，也可以放到文件中等等。可以把realm理解为以前web项目的dao层。
+
 **Shiro的功能**
 
 > 1、Authentication：身份认证/登陆，验证用户是不是拥有相对应的身份，通常被称为用户“登录”；
+
 > 2、Authorization：授权，即权限验证，验证某个已认证的用户是否拥有某个权限；即判断用户是否能做事情，常见的如：验证某个用户是否拥有某个角色。或者粒度的验证某个用户对某个资源是否具有权限；
+
 > 3、Session Manager：会话管理，即用户登陆后就是一次会话，在没有退出之前，它的所有信息都在会话中；会话可以是普通JavaSE环境的，也可以是Web环境的；
+
 > 4、Cryptographt：加密，保护数据，如密码加密存储到数据库，而不是明文存储； 
+
 > 5、Web Support：Web支持，可以保护 Web 应用程序的安全；
+
 > 6、Caching：缓存，比如用户登陆后，其用户信息、拥有的角色/权限不必每次去查，这样提高效率；
+
 > 7、Concurrency：多线程应用的并发验证，即如在一个线程中开启另一个线程，能把权限自动传播过去；
+
 > 8、Testing：支持单元测试和集成测试，确保代码和预想的一样安全； 
+
 > 9、Run As：允许一个用户假装另一个用户（如果我们允许）的身份进行访问； 
+
 > 10、Remember Me：记住我，这个是非常常见的功能，即一次登陆后，下次再来的话不用登陆了。
 
 ## SpringBoot整合Shiro实现登录认证和权限授权步骤
@@ -147,7 +160,9 @@ public class SysPermission implements Serializable {
 }
 ```
 启动项目，以上的代码会自动生成 <code>user_info</code>（用户信息表）、 <code>sys_role </code>（角色信息表）、 <code>sys_permission </code>（权限信息表）、 <code>sys_user_role </code>（用户角色表）、 <code>sys_role_permission </code>（角色权限表）这五张表。
+
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20200528124949940.png)
+
 **5.给这五张表插入一些初始化数据<code>shiro_user.sql</code>**
 
 ```java
@@ -408,14 +423,22 @@ public class HomeController {
 **下面进行测试，启动项目**
 访问<code>http://localhost:8080/userInfo/userList</code>页面
 由于没有登录就会跳转到<code>http://localhost:8080/login</code>页面
+
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20200528153528747.png)
+
 登录后，访问就会看到用户信息
+
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20200528153658141.png)
+
 上面操作触发MyShiroRealm.doGetAuthenticationInfo()这个方法，也就是登录认证。
 访问<code>http://127.0.0.1:8080/userInfo/userAdd</code>显示用户添加界面
+
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20200528154013504.png)
+
 访问<code>http://127.0.0.1:8080/userInfo/userDel</code>显示403没有权限
+
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20200528154032228.png)
+
 上面操作触发MyShiroRealm.doGetAuthorizationInfo()这个方法，也就是权限授权。
 可以修改用户admin不同权限进行测试。
 以上完成Shiro实现登录认证和权限授权的功能。
