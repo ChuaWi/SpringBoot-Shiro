@@ -179,6 +179,7 @@ INSERT INTO `sys_role_permission` (`permission_id`,`role_id`) VALUES (2,1);
 INSERT INTO `sys_role_permission` (`permission_id`,`role_id`) VALUES (3,2);
 ```
 **6.自定义配置ShiroConfig类**
+
 Apache Shiro 核心通过 Filter 来实现，就好像SpringMvc 通过DispachServlet 来主控制一样。既然是使用 Filter 一般也就能猜到，是通过URL规则来进行过滤和权限校验，所以我们需要定义一系列关于URL的规则和访问权限。
 
 ```java
@@ -269,6 +270,7 @@ public class ShiroConfig {
 }
 ```
 **7.Realm类，实现认证与授权**
+
 <code>Realm</code>是专用于安全框架的 DAO. Shiro 的认证过程,最终会交由 Realm 执行，这时会调用 Realm 的getAuthenticationInfo(token)方法。通过它来验证用户身份和权限。只需要从我们的数据源中把用户和用户的角色权限信息取出来交给Shiro即可。
 
 该方法主要执行以下操作:
@@ -326,8 +328,11 @@ public class MyShiroRealm extends AuthorizingRealm {
 }
 ```
 Shiro 的权限授权是通过继承AuthorizingRealm抽象类，重载<code>doGetAuthorizationInfo()</code>。当访问到页面的时候，链接配置了相应的权限或者 Shiro 标签才会执行此方法，否则不会执行。在这个方法中主要是使用类：<code>SimpleAuthorizationInfo</code>进行角色和权限的添加。
+
 <code>authorizationInfo.addRole()</code>**是添加角色的方法**
+
 <code>authorizationInfo.addStringPermission()</code>**是添加权限的方法**
+
 这里可以使用Java8函数式编程，代替foreach循环
 
 ```java
